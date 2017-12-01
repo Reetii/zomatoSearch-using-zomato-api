@@ -6,11 +6,11 @@ import { ZomatoService } from '../zomato.service';
   styleUrls: ['./z-search.component.css']
 })
 export class ZSearchComponent implements OnInit {
-  rests:any;
   location = {};
   loc = " ";
+  rests:any;
+  haslocation:any = false;
   locbyquery:any;
-  restsbylocation:any;
   constructor(private _zomatoService:  ZomatoService ) {
     console.log('z component');
   }
@@ -31,10 +31,9 @@ export class ZSearchComponent implements OnInit {
   getL(){
     this._zomatoService.getLocation(this.loc).subscribe(locbyquery => {
     this.locbyquery = locbyquery;
-    this._zomatoService.getNearbyRestaurants(this.locbyquery.location_suggestions[0].latitude, this.locbyquery.location_suggestions[0].longitude).subscribe(restsbylocation => {
-    this.restsbylocation = restsbylocation;
-    console.log(this.restsbylocation);
-    console.log(this.locbyquery.location_suggestions[0].title);
+    this._zomatoService.getNearbyRestaurants(this.locbyquery.location_suggestions[0].latitude, this.locbyquery.location_suggestions[0].longitude).subscribe(rests => {
+    this.rests = rests;
+    console.log(this.rests);
   });
   });
 
